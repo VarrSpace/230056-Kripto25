@@ -28,78 +28,71 @@ Hill Cipher adalah algoritma kriptografi klasik berbasis **aljabar linear** deng
 ---
 
 ## Alur Program
-Program dimulai
-Program menampilkan menu utama:
 
-Enkripsi
+- Pengguna diminta memasukkan pilihan (`1`, `2`, `3`, atau `0`).
 
-Dekripsi
+---
 
-Cari Kunci
+## 1. Enkripsi
+Jika pengguna memilih **1 (Enkripsi)**:
+1. Program meminta input **plaintext**.
+2. Program meminta ukuran matriks kunci **n**.
+3. Program meminta pengguna memasukkan matriks kunci ukuran `n × n` baris per baris.
+4. Proses enkripsi:
+ - Plaintext diubah menjadi angka (`A=0 ... Z=25`).
+ - Teks angka dibagi ke dalam blok berukuran `n`.
+ - Jika blok terakhir kurang panjang, ditambah angka `0` sebagai padding.
+ - Setiap blok dikalikan dengan matriks kunci.
+ - Hasil perkalian diambil **modulo 26**.
+ - Angka hasil dikonversi kembali menjadi huruf.
+5. Program menampilkan hasil **ciphertext**.
 
-Keluar
-Pengguna diminta memilih salah satu.
+**Alur Ringkas:**
+Plaintext → Ubah ke angka → Bagi blok → Kali matriks kunci (mod 26) → Ciphertext
 
-Pilihan 1: Enkripsi
+---
 
-Pengguna diminta memasukkan plaintext.
+## 2. Dekripsi
+Jika pengguna memilih **2 (Dekripsi)**:
+1. Program meminta input **ciphertext**.
+2. Program meminta ukuran matriks kunci **n**.
+3. Program meminta pengguna memasukkan matriks kunci ukuran `n × n` baris per baris.
+4. Program menghitung:
+   - Determinan matriks kunci.
+   - Mengecek apakah determinan relatif prima dengan 26.
+   - Jika valid, program membuat matriks invers modulo 26.
+5. Proses dekripsi:
+   - Ciphertext diubah menjadi angka (`A=0 ... Z=25`).
+   - Dibagi ke dalam blok berukuran `n`.
+   - Setiap blok dikalikan dengan matriks invers.
+   - Hasil dikonversi kembali menjadi huruf.
+6. Program menampilkan hasil **plaintext**.
 
-Program memvalidasi apakah teks kosong atau tidak. Jika kosong → kembali ke menu.
+Jika determinan matriks tidak relatif prima dengan 26 → matriks tidak punya invers, sehingga dekripsi gagal.
 
-Pengguna diminta memasukkan ukuran matriks kunci (n).
+**Alur Ringkas:**
+Ciphertext → Ubah ke angka → Hitung invers kunci (mod 26) → Bagi blok → Kali invers → Plaintext
 
-Jika n bukan angka atau ≤ 0 → pesan error → kembali ke menu.
 
-Program meminta pengguna mengisi matriks kunci baris per baris.
+---
 
-Jika jumlah angka di baris tidak sama dengan n → pesan error → input ulang baris.
+## 3. Cari Kunci
+Jika pengguna memilih **3 (Cari Kunci)**:
+1. Program meminta input **plaintext**.
+2. Program meminta input **ciphertext**.
+3. Program meminta ukuran matriks kunci **n**.
+4. Program membentuk:
+   - Matriks **P** dari plaintext.
+   - Matriks **C** dari ciphertext.
+5. Program memilih kombinasi kolom untuk membentuk submatriks `P_sub` dan `C_sub` ukuran `n × n`.
+6. Program menghitung:
+   - Invers dari `P_sub` (mod 26).
+   - Matriks kunci dengan rumus:
+     ```
+     K = (C_sub × P_sub⁻¹) mod 26
+     ```
+7. Jika berhasil, program menampilkan **matriks kunci**.
+8. Jika tidak, program menampilkan pesan bahwa kunci tidak ditemukan.
 
-Setelah matriks kunci valid, program mengubah plaintext menjadi angka, membagi ke dalam blok sesuai ukuran n, lalu menghitung hasil enkripsi menggunakan perkalian matriks modulo 26.
-
-Program menampilkan hasil ciphertext.
-
-Pilihan 2: Dekripsi
-
-Pengguna diminta memasukkan ciphertext.
-
-Program memvalidasi apakah teks kosong atau tidak. Jika kosong → kembali ke menu.
-
-Pengguna diminta memasukkan ukuran matriks kunci (n).
-
-Jika n bukan angka atau ≤ 0 → pesan error → kembali ke menu.
-
-Program meminta pengguna mengisi matriks kunci baris per baris.
-
-Program menghitung determinan matriks dan mencoba mencari invers dalam modulo 26.
-
-Jika tidak ada invers (determinannya tidak relatif prima dengan 26) → program menampilkan pesan bahwa kunci tidak valid.
-
-Jika berhasil, program menghitung plaintext dengan cara mengalikan ciphertext dengan matriks invers (mod 26).
-
-Program menampilkan hasil plaintext.
-
-Pilihan 3: Cari Kunci
-
-Pengguna diminta memasukkan plaintext dan ciphertext yang saling berpasangan.
-
-Program memvalidasi apakah salah satunya kosong. Jika kosong → kembali ke menu.
-
-Pengguna diminta memasukkan ukuran matriks kunci (n).
-
-Jika n bukan angka atau ≤ 0 → pesan error → kembali ke menu.
-
-Program membuat matriks dari plaintext dan ciphertext, lalu mencoba mencari kunci dengan cara menghitung invers matriks plaintext dan mengalikannya dengan ciphertext (semua dihitung dalam mod 26).
-
-Jika kunci ditemukan → ditampilkan matriks kunci.
-
-Jika gagal → ditampilkan pesan kunci tidak ditemukan.
-
-Pilihan 0: Keluar
-
-Program menampilkan pesan selesai, kemudian berhenti.
-
-Jika pengguna memasukkan pilihan yang tidak ada
-
-Program menampilkan pesan bahwa pilihan salah.
-
-Program kembali ke menu utama.
+**Alur Ringkas:**
+Plaintext + Ciphertext → Bentuk matriks → Cari invers P_sub (mod 26) → Hitung Kunci → Output Matriks Kunci
