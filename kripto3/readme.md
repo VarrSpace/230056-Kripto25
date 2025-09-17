@@ -1,7 +1,3 @@
-name: "README - Vigenere & ElGamal"
-description: |
-  Penjelasan program dibagi menjadi dua bagian: Vigenere Cipher dan ElGamal.
-  Masing-masing dijelaskan secara poin-poin agar mudah dipahami.
 
 vigenere_cipher:
   - Program menggunakan prinsip substitusi huruf dengan kunci.
